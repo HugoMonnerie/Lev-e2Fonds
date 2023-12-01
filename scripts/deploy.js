@@ -7,12 +7,12 @@
 const hre = require("hardhat");
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
+  const kawaiiToken = await hre.ethers.deployContract("KawaiiToken");
 
-  const kawaiiToken = await hre.ethers.deployContract("KawaiiToken", [deployer]);
+  const kawaiiCrowdFounding = await hre.ethers.deployContract("KawaiiCrowdFounding");
 
   await kawaiiToken.waitForDeployment();
-  console.log("Contract owner:", deployer);
+  await kawaiiCrowdFounding.waitForDeployment();
 
   console.log("KawaiiToken deployed to:", kawaiiToken.target);
 }
