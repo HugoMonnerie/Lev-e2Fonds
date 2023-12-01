@@ -5,16 +5,18 @@ const {address} = require("hardhat/internal/core/config/config-validation");
 
 describe("KawaiiToken", function () {
     async function deployKawaiiToken() {
+        const [ owner ] = await ethers.getSigners();
+
         const KawaiiToken = await ethers.getContractFactory("KawaiiToken");
         const kawaiiToken = await KawaiiToken.deploy();
-        return { kawaiiToken };
+        return { kawaiiToken, owner };
     }
 
-    it("should have correct name, symbol and transfer token", async function () {
-        const { kawaiiToken } = await loadFixture(deployKawaiiToken);
+    it("should have correct name, symbol", async function () {
+        const { kawaiiToken, owner } = await loadFixture(deployKawaiiToken);
 
         expect(await kawaiiToken.name()).to.equal("KawaiiToken");
         expect(await kawaiiToken.symbol()).to.equal("UWU");
-        expect(await kawaiiToken.balanceOf(kawaiiToken.target)).to.equal(0);
+        expect(await kawaiiToken.balanceOf(owner.address)).to.equal(await kawaiiToken.MAX_SUPPLY());
     });
 });

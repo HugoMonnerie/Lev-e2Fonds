@@ -16,7 +16,7 @@ async function main() {
 
   const kawaiiCrowdFounding = await KawaiiCrowdFounding.deploy(await kawaiiToken.getAddress());
 
-  kawaiiToken.transfer(await kawaiiCrowdFounding.getAddress(), 1000);
+  await kawaiiToken.transfer(await kawaiiCrowdFounding.getAddress(), 1000);
 
   console.log("KawaiiToken deployed to:", kawaiiToken.target);
 }
