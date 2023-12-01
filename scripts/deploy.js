@@ -5,14 +5,18 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
+const {ethers} = require("hardhat");
 
 async function main() {
-  const kawaiiToken = await hre.ethers.deployContract("KawaiiToken");
+  const KawaiiToken = await ethers.getContractFactory("KawaiiToken");
 
-  const kawaiiCrowdFounding = await hre.ethers.deployContract("KawaiiCrowdFounding");
+  const kawaiiToken = await KawaiiToken.deploy();
 
-  await kawaiiToken.waitForDeployment();
-  await kawaiiCrowdFounding.waitForDeployment();
+  const KawaiiCrowdFounding = await ethers.getContractFactory("KawaiiCrowdFounding");
+
+  const kawaiiCrowdFounding = await KawaiiCrowdFounding.deploy(await kawaiiToken.getAddress());
+
+  kawaiiToken.transfer(await kawaiiCrowdFounding.getAddress(), 1000);
 
   console.log("KawaiiToken deployed to:", kawaiiToken.target);
 }
