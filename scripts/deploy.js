@@ -19,6 +19,7 @@ async function main() {
   await kawaiiToken.transfer(await kawaiiCrowdFounding.getAddress(), 1000);
 
   console.log("KawaiiToken deployed to:", kawaiiToken.target);
+  console.log("kawaiiCrowdFounding deployed to:", kawaiiCrowdFounding.target);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

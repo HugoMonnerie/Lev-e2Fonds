@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
@@ -17,7 +17,7 @@ contract KawaiiCrowdFounding is Ownable {
     function acheterTokens(address acheteur) public payable {
         require(msg.value > 0, "Le montant envoye doit etre superieur a zero");
 
-        require(msg.value <= kawaiiToken.balanceOf(address(this)), "La levee de fonds est terminee");
+        require(msg.value <= kawaiiToken.balanceOf(address(this)), "La levee de fonds est terminee"); 
 
         kawaiiToken.transfer(acheteur, msg.value);
     }
